@@ -74,9 +74,9 @@ cd ARTEX
 - **① 全部 Docker**：填一个 Postgres 密码（可回车随机）→ 自动写 `.env` → `docker compose up -d`。
 - **② 本地运行**：选数据库（连已有 / 用 Docker 起一个）→ 生成 `config.json` → `go` 编译内嵌单二进制 → 启动。
 
-装好后打开 **http://localhost:8787**（首次进入 `/setup` 设置管理员密码）。
+装好后打开 **http://localhost:8787** （首次进入 `/setup` 设置管理员密码）。
 
-### 方式二：Docker Compose（手动）
+### 方式二：Docker Compose（推荐）
 
 ```bash
 git clone https://github.com/trhhubsd/ARTEXX
