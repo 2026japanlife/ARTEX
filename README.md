@@ -2,7 +2,7 @@
 
 # ARTEX
 
-AI 自主渗透测试系统（Go 后端 + Next.js 前端）
+Autumn-27/ARTEX 的持续维护版本。AI 自主渗透测试系统（Go 后端 + Next.js 前端）。
 
 </div>
 
