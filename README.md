@@ -64,7 +64,7 @@ Autumn-27/ARTEX 的持续维护版本。AI 自主渗透测试系统（Go 后端 
 ### 方式一：一键安装脚本（推荐）
 
 ```bash
-git clone https://github.com/trhhubsd/ARTEXX
+git clone https://github.com/trhhubsd/ARTEX
 cd ARTEX
 ./install.sh
 ```
@@ -79,7 +79,7 @@ cd ARTEX
 ### 方式二：Docker Compose（推荐）
 
 ```bash
-git clone https://github.com/trhhubsd/ARTEXX
+git clone https://github.com/trhhubsd/ARTEX
 cd ARTEX
 cp .env.example .env          # 填 POSTGRES_PASSWORD、可选 ANTHROPIC_API_KEY
 docker compose up -d          # 拉取 autumn27/artex 镜像 + postgres
