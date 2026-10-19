@@ -13,8 +13,6 @@ AI 自主渗透测试系统（Go 后端 + Next.js 前端）。
 
 ARTEX is a multi-agent system for autonomous penetration testing in an isolated lab: a planner and workers share an asset graph and an exploration graph, with human-in-the-loop approval and full traffic recording. It ships as one binary or a Docker Compose stack.
 
-中文安装与架构见下文。Fork 后改 skill、agent 或 MCP，见 [docs/forking.md](docs/forking.md)。
-
 ---
 
 ## 截图预览
