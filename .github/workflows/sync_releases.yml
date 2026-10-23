@@ -1,4 +1,3 @@
-yaml
 name: Sync Upstream Releases
 
 on:
@@ -11,11 +10,6 @@ jobs:
       - name: Copy Releases from Upstream
         uses: flash-gordon/copy-releases-action@v1
         with:
-          # 1. 填入原作者的“用户名/仓库名”
-          source-repo: "trhhubsd/ARTEX"
-          
-          # 2. 填入你自己的“用户名/仓库名”
-          target-repo: "2026japanlife/ARTEX"
-          
-          # 3. 保持默认即可，GitHub 自动提供的操作权限令牌
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          from_repo: "trhhubsd/ARTEX"
+          to_repo: "2026japanlife/ARTEX"
+          token: ${{ secrets.GITHUB_TOKEN }}
