@@ -7,9 +7,49 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Copy Releases from Upstream
-        uses: flash-gordon/copy-releases-action@v1
+      - name: Checkout Forked Repo
+        uses: actions/checkout@v4
         with:
-          from_repo: "trhhubsd/ARTEX"
-          to_repo: "2026japanlife/ARTEX"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0 # 完整克隆
+
+      - name: Sync Tags and Releases via GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # 1. 配置 Git 信息
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 2. 添加上游原仓库，并拉取上游的所有 Tags
+          git remote add upstream https://github.com
+          git fetch upstream --tags
+          
+          # 3. 把所有的 Tags 推送到你自己的 Fork 仓库
+          git push origin --tags --force
+          
+          # 4. 使用 GitHub CLI 自动对比并同步 Releases 说明和附件
+          echo "正在获取上游仓库的 Releases 列表..."
+          # 获取上游最近的 10 个 release 标签名
+          upstream_releases=$(gh api repos/trhhubsd/ARTEX/releases --jq '.[].tag_name')
+          
+          for tag in $upstream_releases; do
+            # 检查你的 Fork 仓库里是否已经存在这个 Release
+            if gh api repos/2026japanlife/ARTEX/releases/tags/$tag >/dev/null 2>&1; then
+              echo "Release $tag 已经存在，跳过。"
+            else
+              echo "正在同步 Release $tag ..."
+              # 获取上游该 release 的数据
+              release_data=$(gh api repos/trhhubsd/ARTEX/releases/tags/$tag)
+              name=$(echo "$release_data" | jq -r '.name')
+              body=$(echo "$release_data" | jq -r '.body')
+              prerelease=$(echo "$release_data" | jq -r '.prerelease')
+              draft=$(echo "$release_data" | jq -r '.draft')
+              
+              # 在你自己的仓库中创建该 Release
+              gh release create "$tag" \
+                --title "$name" \
+                --notes "$body" \
+                $( [ "$prerelease" = "true" ] && echo "--prerelease" ) \
+                $( [ "$draft" = "true" ] && echo "--draft" )
+            fi
+          done
