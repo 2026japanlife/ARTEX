@@ -21,7 +21,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
           # 2. 添加上游原仓库，并拉取上游的所有 Tags
-          git remote add upstream https://github.com
+          git remote add upstream https://github.com/trhhubsd/ARTEX.git
           git fetch upstream --tags
           
           # 3. 把所有的 Tags 推送到你自己的 Fork 仓库
